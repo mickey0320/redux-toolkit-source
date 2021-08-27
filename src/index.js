@@ -31,8 +31,12 @@ const { reducer, actions } = createSlice({
   name: "counter",
   initialState: { num: 0 },
   reducers: {
-    add: (state, action) => ({ ...state, num: state.num + action.payload }),
-    minus: (state, action) => ({ ...state, num: state.num - action.payload }),
+    add: (state, action) => {
+      state.num += action.payload;
+    },
+    minus: (state, action) => {
+      state.num -= action.payload;
+    },
   },
 });
 const store = configureStore({
