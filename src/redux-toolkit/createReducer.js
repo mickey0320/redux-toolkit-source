@@ -1,11 +1,13 @@
 import { produce } from "immer";
 
-function createReducer(initialState, reducers) {
+function createReducer(initialState, reducers, extraReducers) {
   function reducer(state = initialState, action) {
     const type = action.type;
-    const r = reducers[type];
-    if (r) {
-      return produce(state, (draft) => r(draft, action));
+    if (reducers[type]) {
+      return produce(state, (draft) => reducers[type](draft, action));
+    }
+    if (extraReducers[type]) {
+      return produce(state, (draft) => extraReducers[type](draft, action));
     }
     return state;
   }

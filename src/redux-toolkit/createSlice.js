@@ -5,7 +5,7 @@ function getType(namespace, type) {
   return `${namespace}/${type}`;
 }
 function createSlice(options) {
-  const { name, reducers, initialState } = options;
+  const { name, reducers, initialState, extraReducers } = options;
   const prefixReduders = {};
   const actions = {};
   Object.keys(reducers).forEach((type) => {
@@ -13,7 +13,7 @@ function createSlice(options) {
     prefixReduders[prefixType] = reducers[type];
     actions[type] = createAction(prefixType);
   });
-  const reducer = createReducer(initialState, prefixReduders);
+  const reducer = createReducer(initialState, prefixReduders, extraReducers);
 
   return {
     reducer,
